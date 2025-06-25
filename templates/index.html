@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <title>Otomatik Sulama Sistemi</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .sensor { margin: 10px 0; }
+        .button { padding: 10px 20px; margin: 5px; font-size: 16px; text-decoration: none; border: 1px solid #333; background: #eee; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Otomatik Sulama Sistemi</h1>
+    <h2>Sensör Verileri</h2>
+    <div class="sensor">
+        <p>Sıcaklık: <span id="temperature">{{ sensor.temperature }}</span> °C</p>
+        <p>Nem: <span id="humidity">{{ sensor.humidity }}</span> %</p>
+    </div>
+    <h2>Manuel Kontrol</h2>
+    <button class="button" id="startIrrigation">Sulamayı Başlat</button>
+    <button class="button" id="stopIrrigation">Sulamayı Durdur</button>
+    <h2>Otomatik Kontrol</h2>
+    <button class="button" id="enableAutomation">Otomatik Süreç Etkin</button>
+    <button class="button" id="disableAutomation">Otomatik Süreç Devre Dışı</button>
+    <h2>Dosya İndirme</h2>
+    <a href="/download-index" class="button">HTML Dosyasını İndir</a>
+    <a href="/download-zip" class="button">Proje Dosyalarını İndir</a>
+
+    <script>
+        // Sensör verilerini belirli aralıklarla yenile
+        function fetchSensorData() {
+            $.get("/sensor", function(data) {
+                $("#temperature").text(data.temperature.toFixed(2));
+                $("#humidity").text(data.humidity.toFixed(2));
+            });
+        }
+        setInterval(fetchSensorData, 5000);
+
+        // Manuel kontrol butonlarının işlevleri:
+        $("#startIrrigation").click(function() {
+            $.post("/irrigation/start", function(result) {
+                alert(result.status);
+            });
+        });
+
+        $("#stopIrrigation").click(function() {
+            $.post("/irrigation/stop", function(result) {
+                alert(result.status);
+            });
+        });
+
+        $("#enableAutomation").click(function() {
+            $.post("/automation/enable", function(result) {
+                alert(result.status);
+            });
+        });
+
+        $("#disableAutomation").click(function() {
+            $.post("/automation/disable", function(result) {
+                alert(result.status);
+            });
+        });
+    </script>
+</body>
+</html>
