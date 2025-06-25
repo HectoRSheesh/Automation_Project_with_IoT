@@ -30,3 +30,4 @@ flowchart TD
   I -- Hayir --> N[Sulama Yok]
   N --> O[UI'ye Guncel Sensor Verisi Gonder]
   O --> G
+```
