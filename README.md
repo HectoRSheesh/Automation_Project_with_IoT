@@ -1,5 +1,3 @@
-
-
 ```mermaid
 flowchart TD
   A([Başlat]) --> B{Donanim Baglantilari\nBasarili mi?}
@@ -26,8 +24,6 @@ flowchart TD
   K --> L[Log Kaydi Olustur]
   L --> M[UI'yi Guncelle]
   M --> G
-```
-
   I -- Hayir --> N[Sulama Yok]
   N --> O[UI'ye Guncel Sensor Verisi Gonder]
   O --> G
